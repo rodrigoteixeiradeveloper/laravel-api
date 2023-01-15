@@ -1,0 +1,5 @@
+## CRIAR NOVO PROJETO
+-- composer create-project laravel/laravel project-name
+
+## INICIAR PROJETO
+-- php artisan serve
