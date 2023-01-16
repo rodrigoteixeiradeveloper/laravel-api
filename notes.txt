@@ -3,3 +3,9 @@
 
 ## INICIAR PROJETO
 -- php artisan serve
+
+## CRIAR MIGRATIONS
+-- php artisan make:model Testamento --migration
+
+## EXECUTAR AS MIGRATIONS
+-- php artisan migrate
