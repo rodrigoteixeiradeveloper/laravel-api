@@ -9,3 +9,6 @@
 
 ## EXECUTAR AS MIGRATIONS
 -- php artisan migrate
+
+## CRIAR CONTROLLER
+-- php artisan make:controller TestamentoController --api
