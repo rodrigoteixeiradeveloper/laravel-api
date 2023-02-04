@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Versiculo;
 use Illuminate\Http\Request;
 
 class VersiculoController extends Controller
@@ -13,7 +14,7 @@ class VersiculoController extends Controller
      */
     public function index()
     {
-        //
+        return Versiculo::all();
     }
 
     /**
@@ -24,40 +25,44 @@ class VersiculoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Versiculo::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($versiculo)
     {
-        //
+        return Versiculo::findOrFail($versiculo);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $versiculo)
     {
-        //
+        $versiculo = Versiculo::findOrFail($versiculo);
+
+        $versiculo->update($request->all());
+
+        return $versiculo;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($versiculo)
     {
-        //
+        return Versiculo::destroy($versiculo);
     }
 }

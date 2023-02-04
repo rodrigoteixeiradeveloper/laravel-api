@@ -12,3 +12,19 @@
 
 ## CRIAR CONTROLLER
 -- php artisan make:controller TestamentoController --api
+
+## LISTAR ROTAS
+-- php artisan route:list
+
+ ## PUBLICAR CONFIGURAÇÕES DO sanctum
+-- php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+-- php artisan migrate
+
+## DEPOIS DE ADICIONAR O PROVIDER NO ARQUIVO KERNEL.PHP ADICIONAR O CODIGO ABAIXO NA SESSÃO api
+
+'api' => [
+    \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    'throttle:api',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+],
+

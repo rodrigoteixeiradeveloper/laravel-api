@@ -25,44 +25,85 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        return Livro::create($request->all());
+        if(Livro::create($request->all())) {
+            return response()->json(
+                [
+                    'message' => 'Livro cadastrado com sucesso!'
+                ], 201
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Erro ao cadastrar livro!'
+            ], 404
+        );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($livro)
     {
-        return Livro::findOrFail($id);
+        $livro = Livro::find($livro);
+        if($livro) {
+            return $livro;
+        }
+
+        return response()->json(
+            [
+                'message' => 'Livro não encontrado!'
+            ], 404
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $livro)
     {
-        $livro = Livro::findOrFail($id);
+        $livro = Livro::find($livro);
 
-        $livro->update($request->all());
+        if($livro){
+            $livro->update($request->all());
 
-        return $livro;
+            return $livro;
+        }
+
+        return response()->json(
+            [
+                'message' => 'Livro não encontrado!'
+            ], 404
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($livro)
     {
-        return Livro::destroy($id);
+        if(Livro::destroy($livro)){
+            return response()->json(
+                [
+                    'message' => 'Livro excluído com sucesso!'
+                ], 200
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Livro não encontrado!'
+            ], 404
+        );
     }
 }
