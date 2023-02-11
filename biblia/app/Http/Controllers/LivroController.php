@@ -10,7 +10,7 @@ class LivroController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class LivroController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -44,12 +44,16 @@ class LivroController extends Controller
      * Display the specified resource.
      *
      * @param  int  $livro
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($livro)
     {
         $livro = Livro::find($livro);
         if($livro) {
+
+            $livro->testamento;
+            $livro->versiculos;
+
             return $livro;
         }
 
@@ -65,7 +69,7 @@ class LivroController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $livro
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $livro)
     {
@@ -88,7 +92,7 @@ class LivroController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $livro
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($livro)
     {

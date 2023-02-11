@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\IdiomaController;
+use App\Http\Controllers\TraducaoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +35,9 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::apiResources([
         'versiculo' => VersiculoController::class,
         'livro' => LivroController::class,
-        'testamento' => TestamentoController::class
+        'testamento' => TestamentoController::class,
+        'traducao' => TraducaoController::class,
+        'idioma' => IdiomaController::class,
     ]);
 
     Route::post('/logout', [AuthController::class, 'logout']);

@@ -21,22 +21,46 @@ class VersiculoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        return Versiculo::create($request->all());
+        if(Versiculo::create($request->all())) {
+            return response()->json(
+                [
+                    'message' => 'Versiculo cadastrado com sucesso!'
+                ], 201
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Erro ao cadastrar Versiculo!'
+            ], 404
+        );
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $versiculo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($versiculo)
     {
-        return Versiculo::findOrFail($versiculo);
+        $versiculo = Versiculo::find($versiculo);
+        if($versiculo) {
+
+            $versiculo->livro;
+
+            return $versiculo;
+        }
+
+        return response()->json(
+            [
+                'message' => 'Versiculo não encontrado!'
+            ], 404
+        );
     }
 
     /**
@@ -44,25 +68,44 @@ class VersiculoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $versiculo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $versiculo)
     {
-        $versiculo = Versiculo::findOrFail($versiculo);
+        $versiculo = Versiculo::find($versiculo);
 
-        $versiculo->update($request->all());
+        if($versiculo){
+            $versiculo->update($request->all());
 
-        return $versiculo;
+            return $versiculo;
+        }
+
+        return response()->json(
+            [
+                'message' => 'Versiculo não encontrado!'
+            ], 404
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $versiculo
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($versiculo)
     {
-        return Versiculo::destroy($versiculo);
+        if(Versiculo::destroy($versiculo)){
+            return response()->json(
+                [
+                    'message' => 'Versiculo excluído com sucesso!'
+                ], 200
+            );
+        }
+        return response()->json(
+            [
+                'message' => 'Versiculo não encontrado!'
+            ], 404
+        );
     }
 }
