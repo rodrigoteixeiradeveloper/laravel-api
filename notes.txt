@@ -27,3 +27,10 @@
     'throttle:api',
     \Illuminate\Routing\Middleware\SubstituteBindings::class,
 ],
+
+## criar atalho para pasta storage na pasta publica 
+-- php artisan storage:link
+
+## Criando resource
+php artisan make:resource IdiomaResource
+php artisan make:resource IdiomaCollection

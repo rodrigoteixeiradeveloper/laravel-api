@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testamento;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TestamentoController extends Controller
@@ -21,7 +22,7 @@ class TestamentoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -44,7 +45,7 @@ class TestamentoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $testamento
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($testamento)
     {
@@ -68,7 +69,7 @@ class TestamentoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $testamento
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function update(Request $request, $testamento)
     {
@@ -90,10 +91,9 @@ class TestamentoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $testamento
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy($testamento)
+    public function destroy($testamento): JsonResponse
     {
         if(Testamento::destroy($testamento)){
             return response()->json(

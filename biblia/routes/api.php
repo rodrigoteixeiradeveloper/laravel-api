@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
         'idioma' => IdiomaController::class,
     ]);
 
+    Route::post('/livro/upload/{id}', [LivroController::class, 'upload']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

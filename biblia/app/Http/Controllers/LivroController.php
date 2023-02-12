@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LivroResource;
+use App\Http\Resources\LivrosCollection;
 use App\Models\Livro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LivroController extends Controller
 {
@@ -14,7 +17,7 @@ class LivroController extends Controller
      */
     public function index()
     {
-        return Livro::all();
+        return Livro::with('testamento', 'versiculos')->paginate(1);
     }
 
     /**
@@ -49,12 +52,15 @@ class LivroController extends Controller
     public function show($livro)
     {
         $livro = Livro::find($livro);
+
+        //Storage::disk('public')->url($livro->capa);
+
         if($livro) {
 
-            $livro->testamento;
-            $livro->versiculos;
+            //$livro->testamento;
+            //$livro->versiculos;
 
-            return $livro;
+            return new LivroResource($livro);
         }
 
         return response()->json(
@@ -84,6 +90,32 @@ class LivroController extends Controller
         return response()->json(
             [
                 'message' => 'Livro não encontrado!'
+            ], 404
+        );
+    }
+
+
+    public function upload(Request $request, $livro)
+    {
+        $path = $request->capa->store('livros', 'public');
+
+        $livro = Livro::find($livro);
+        if($livro){
+            $livro->capa = $path;
+
+            if($livro->save())
+                return $livro;
+
+            return response()->json(
+                [
+                    'message' => 'Erro on save image!'
+                ], 404
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Not found!'
             ], 404
         );
     }
